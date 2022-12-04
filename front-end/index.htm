@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>CENS-IT</title>
+    <style>
+        html {
+            background: url("res/bg-image.png");
+            background-repeat: no-repeat;
+            background-size: cover;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        
+        .input-container {
+            position: relative;
+            padding: 100px;
+            margin-left: 380px;
+        }
+        
+        .title {
+            color: #eb4335;
+            font-size: 50px;
+        }
+        
+        #myFile {
+            color: #4285f4;
+        }
+        
+        #submit-button {
+            background: #34a853;
+            color: white;
+            border-style: outset;
+            border-color: #0066A2;
+            border-radius: 20px;
+            height: 50px;
+            width: 100px;
+            font: bold15px arial,sans-serif;
+            text-shadow: none;
+            align-content: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="input-container">
+        <h1 class="title">CENS-IT</h1>
+        <h2>Select a video file to be <s style="color: #fbbc05;">CENSORED</s></h2>
+        <form class="inputs">
+            <input type="file" id="myFile" name="filename">
+            <br>
+            <input type="radio" name="video-audio" id="select-video" value="video">video
+            <br>
+            <input type="radio" name="video-audio" id="select-audio" value="audio">audio
+            <br>
+            <input type="radio" name="video-audio" id="select-both" value="live">live
+            <br>
+            <button id="submit-button"><a href="loading.htm">SUBMIT</a></button>
+            <!-- <input type="submit" id="submit-button" onclick="redirectFunc()"> -->
+        </form>
+    </div>
+</body>
+<script>
+    const downloadToFile = (content, filename, contentType) => {
+        const a = document.createElement('a');
+        const file = new Blob([content], {type: contentType});
+        
+        a.href= URL.createObjectURL(file);
+        a.download = filename;
+        a.click();
+
+        URL.revokeObjectURL(a.href);
+    };
+
+    function redirectFunc() {
+        location.replace('/loading.htm');
+    }
+
+    const redirectToLoadingPage = (path) => {
+        location.href(path);
+    }
+
+    document.querySelector('#submit-button').addEventListener('click', () => {
+        const formatType = document.querySelector('input[type="radio"]:checked').value;
+        //const videoPath = document.getElementById('myFile').value;
+        //const data = videoPath + "\n" + formatType;
+        downloadToFile(formatType, 'format.txt', 'text/plain');
+    });
+</script>
+</html>

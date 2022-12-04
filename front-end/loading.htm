@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loading Page</title>
+    <style>
+        html {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: gray;
+        }
+        h1 {
+          text-align: center;
+        }
+        .ring {
+          border: 20px solid rgb(211, 211, 211);
+          position: absolute;
+          left: 45%;
+          border-radius: 50%;
+          border-top: 20px solid #eb4335; /* red */
+          border-bottom: 20px solid #4285f4; /* blue */
+          border-right: 20px solid #fbbc05; /* yellow */
+          border-left:20px solid #34a853; /* green */
+          width: 120px;
+          height: 120px;
+          animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+          0% {
+            transform: rotate(0deg);
+          }
+          100% {
+            transform: rotate(360deg);
+          }
+        }
+    </style>
+</head>
+<body>
+    <h1>Please wait...</h1>
+    <h1>Working on your audio / video file </h1>
+    <div class="ring"> </div>
+    <p id="to-a" style="font-size: 100px; color:rgb(211, 211, 211);"></p>
+    <script>
+        const val = document.getElementById("to-a");
+        let temp = "true"
+
+        function changePage() {
+            var a = document.createElement('a'); 
+            var link = document.createTextNode("Continue to next page");
+            a.appendChild(link); 
+            a.title = "Continue to next page"; 
+            a.href = "readFile.htm";
+            document.body.appendChild(a); 
+        }
+
+        const getPost = async function () {
+            var getResponse = await fetch('load.txt')
+                                        .then(response => response.text())
+                                        .then(data => {
+                                            temp = data;
+                                            console.log(data);
+                                        });
+            console.log(temp);
+
+            if(temp === "success") {
+                await changePage();
+            }
+
+        }
+
+        getPost();
+        
+    </script>
+</body>
+</html>

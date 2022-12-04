@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Read Text File</title>
+    <style>
+        html {
+            background-color: gray;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        h3 {
+            color: whitesmoke;
+        }
+        h2 {
+            color: black;
+        }
+        .container {
+            max-width: 500px;
+            margin: auto;
+        }
+        .video-container {
+            max-width: 500px;
+            margin: auto;
+        }
+    </style>
+</head>
+<body> 
+    <div class="container">
+        <h3>The video is censored to : </h3><h2 id="output"></h2>
+    </div>
+    <div class="video-container">
+        <video width="320" height="240" controls>
+            <source src="results.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <script type="text/javascript">
+
+        fetch('output.txt')
+            .then(response => response.text())
+            .then(data => {
+  	        console.log(data);
+            document.getElementById('output').innerHTML = data;
+        });
+
+    </script>
+</body>
+  
+</html>
